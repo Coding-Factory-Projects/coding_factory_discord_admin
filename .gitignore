@@ -35,6 +35,9 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# Environment
+*.env
+
 ### NEXT JS ###
 .pnp/
 .pnp.js
