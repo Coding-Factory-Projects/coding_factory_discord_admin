@@ -20,6 +20,7 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
       database: this.config.get<string>('TYPEORM_DATABASE'),
       entities: [join(__dirname, '../../dist/**/entity/**/*.js')],
       synchronize: this.config.get<boolean>('TYPEORM_SYNCHRONIZE'),
+      autoLoadEntities: true,
     };
   }
 }
