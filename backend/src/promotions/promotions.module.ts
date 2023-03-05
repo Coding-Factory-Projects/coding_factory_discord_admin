@@ -1,8 +1,12 @@
 import { Module } from '@nestjs/common';
 import { PromotionsService } from './promotions.service';
 import { PromotionsController } from './promotions.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Promotion } from './entities/promotion.entity';
+import { Student } from './entities/student.entity';
 
 @Module({
+  imports: [TypeOrmModule.forFeature([Promotion, Student])],
   controllers: [PromotionsController],
   providers: [PromotionsService],
 })
