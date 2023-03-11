@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { InjectRepository, InjectDataSource } from '@nestjs/typeorm';
 import { DataSource, EntityManager, Repository } from 'typeorm';
 import { CreatePromotionDto } from './dto/create-promotion.dto';
 import { UpdatePromotionDto } from './dto/update-promotion.dto';
@@ -11,10 +11,11 @@ export class PromotionsService {
   constructor(
     @InjectRepository(Promotion)
     private readonly promotionsRepository: Repository<Promotion>,
+    @InjectDataSource()
     private readonly dataSource: DataSource,
   ) {}
 
-  async create(createPromotionDto: CreatePromotionDto) {
+  async create(createPromotionDto: any) {
     await this.dataSource.transaction(async (manager: EntityManager) => {
       const promotion = await manager.save(Promotion, createPromotionDto);
       for (const student of createPromotionDto.students) {
@@ -38,10 +39,11 @@ export class PromotionsService {
   }
 
   update(id: number, updatePromotionDto: UpdatePromotionDto) {
-    return `This action updates a #${id} promotion`;
+    return this.promotionsRepository.update(id, updatePromotionDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} promotion`;
+  async remove(id: number) {
+    const entity = await this.findOne(id);
+    return this.promotionsRepository.remove(entity);
   }
 }

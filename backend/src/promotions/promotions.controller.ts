@@ -6,7 +6,10 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { PromotionsService } from './promotions.service';
 import { CreatePromotionDto } from './dto/create-promotion.dto';
 import { UpdatePromotionDto } from './dto/update-promotion.dto';
@@ -16,8 +19,13 @@ export class PromotionsController {
   constructor(private readonly promotionsService: PromotionsService) {}
 
   @Post()
-  create(@Body() createPromotionDto: CreatePromotionDto) {
-    return this.promotionsService.create(createPromotionDto);
+  @UseInterceptors(FileInterceptor('students_file'))
+  create(
+    @Body() createPromotionDto: CreatePromotionDto,
+    @UploadedFile() studentsList: Express.Multer.File,
+  ) {
+    console.log(createPromotionDto, studentsList);
+    return this.promotionsService.create({ ...createPromotionDto, students: [] });
   }
 
   @Get()

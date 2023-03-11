@@ -5,5 +5,5 @@ export class CreateStudentDto {
 
 export class CreatePromotionDto {
   name: string;
-  students: CreateStudentDto[];
+  // students: CreateStudentDto[];
 }
