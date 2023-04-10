@@ -18,7 +18,7 @@ export default function Home() {
         console.log(password)
     }
   return (
-    <>
+    <div className='fullpage center-content'>
         <Form className={styles.form} onClick={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Control type="email" placeholder="email" className={styles.input} onChange={handleEmailChange}/>
@@ -30,6 +30,6 @@ export default function Home() {
                 Submit
             </Button>
         </Form>
-    </>
+    </div>
   )
 }

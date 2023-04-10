@@ -1,13 +1,81 @@
-hmtl {
-  height: 100%;
-  width: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+body {
+  font-family: 'Nunito', sans-serif !important;
 }
-body{
+
+.fullpage {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.center-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  overflow: hidden;
-  background-color: #353844 !important;
 }
 
+.bg-dark {
+  background-color: #353844;
+  color: white !important;
+}
+
+.sidebar-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 1rem;
+}
+
+.sidebar {
+  background-color: #1B2031;
+  padding-block: 36px; 
+  height: 100vh;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.sidebar > ul {
+  list-style: none;
+  padding: 0;
+  margin: auto;
+}
+
+.sidebar li {
+  width: 70%;
+  margin: auto;
+  background-color: #353844;
+  text-align: center;
+  padding: 10px 10px;
+  border-radius: 8px;
+}
+
+.sidebar a {
+  color: white; 
+  text-decoration: none !important;
+}
+
+.btn {
+  background-color: #ba2764 !important;
+  border:none !important;
+  --bs-btn-hover-bg: #d60d61 !important;
+
+  padding: .75rem 1.25rem !important;
+}
+
+.btn:active{
+  background-color: #d60d61 !important;
+}
+
+.input{
+  background-color: #8c92ab;
+  border: none;
+  color: #ffffff;
+}
+
+.input:focus{
+  background-color: #8c92ab;
+  color: #ffffff;
+}
+
+.input::placeholder{
+  color:white;
+}
