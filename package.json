@@ -5,7 +5,11 @@
         "frontend"
     ],
     "scripts": {
-        "start:frontend": "yarn workspace backend dev",
+        "start:frontend": "yarn workspace frontend dev",
         "start:backend": "yarn workspace backend start:dev"
+    },
+    "dependencies": {
+        "bootstrap": "^5.2.3",
+        "react-bootstrap": "^2.7.2"
     }
 }
