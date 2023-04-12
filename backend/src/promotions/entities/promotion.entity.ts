@@ -18,6 +18,9 @@ export class Promotion {
   @Column()
   end_year: number;
 
+  @Column({ default: '' })
+  discord_role_id: string;
+
   @Column()
   archived: boolean;
 
