@@ -1,3 +1,5 @@
+import Cookie from "js-cookie";
+
 export interface Promotion {
   id: number;
   name: string;
@@ -12,12 +14,12 @@ export interface Promotion {
 
 const API_URL = process.env.API_URL;
 
-export async function getPromotions(): Promise<Array<Promotion>> {
-  const request = await fetch(`${API_URL}/promotions`);
+export async function getPromotions(token: string): Promise<Array<Promotion>> {
+  const request = await fetch(`${API_URL}/promotions`, { headers: { 'Authorization': `Bearer ${token}` } });
   const json = await request.json();
 
   if (request.status !== 200) {
-    throw new Error(json.message)
+    throw json.message;
   }
 
   return json;

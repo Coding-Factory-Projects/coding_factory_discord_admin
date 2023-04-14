@@ -8,11 +8,13 @@ import {
   Delete,
   UseInterceptors,
   UploadedFile,
+  UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PromotionsService } from './promotions.service';
 import { CreatePromotionDto } from './dto/create-promotion.dto';
 import { UpdatePromotionDto } from './dto/update-promotion.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('promotions')
 export class PromotionsController {
@@ -28,6 +30,7 @@ export class PromotionsController {
     return this.promotionsService.create({ ...createPromotionDto, students: [] });
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   findAll() {
     return this.promotionsService.findAll();

@@ -30,8 +30,9 @@ function PromotionRow(props: PromotionRowProps) {
   )
 }
 
-export async function getServerSideProps() {
-  const promotions = await getPromotions();
+export async function getServerSideProps(context: any) {
+  const token = context.req.cookies['token'];
+  const promotions = await getPromotions(token);
 
   return {
     props: {
