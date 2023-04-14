@@ -1,0 +1,14 @@
+.sidebar__title {
+  font-size: 36px;
+  margin-top: 1.25rem;
+  margin-left: .75rem;
+}
+
+.sidebar__breadcrumb {
+  margin-top: 2rem;
+  margin-left: .75rem;
+}
+
+.sidebar__content {
+  display: grid;
+}

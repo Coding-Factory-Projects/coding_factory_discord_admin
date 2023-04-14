@@ -1,8 +1,8 @@
 import { Table, Button } from "react-bootstrap";
 import styles from "@/styles/Promotions.module.css";
-import Sidebar from "@/components/sidebar/Sidebar";
 import { getPromotions, Promotion } from "@/api/promotions";
 import { PromotionsByYear, buildYearlyPromotions } from "@/utilities/build_yearly_promotions"
+import { SidebarLayout } from "@/layouts/sidebar_layout";
 
 type PromotionRow = {
   id: string;
@@ -43,9 +43,7 @@ export async function getServerSideProps(context: any) {
 
 export default function Promotions({ promotionsByYear }: { promotionsByYear: PromotionsByYear }) {
   return (
-    <div className="sidebar-layout">
-      <Sidebar />
-    
+    <SidebarLayout title="Promotions">
       <div className={styles.promotions_page}>
         {promotionsByYear.map(({start_year, end_year, promotions}, index) => (
           <div key={`${start_year}-${end_year}`} className={styles.promotion_container}>
@@ -85,6 +83,6 @@ export default function Promotions({ promotionsByYear }: { promotionsByYear: Pro
           </div>
         ))}
       </div>
-    </div>
+    </SidebarLayout>
   )
 }

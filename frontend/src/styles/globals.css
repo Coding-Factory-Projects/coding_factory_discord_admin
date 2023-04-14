@@ -3,6 +3,10 @@ body {
   font-family: 'Nunito', sans-serif !important;
 }
 
+.color-accent {
+  color: #536DFE;
+}
+
 .fullpage {
   min-height: 100vh;
   overflow: hidden;
