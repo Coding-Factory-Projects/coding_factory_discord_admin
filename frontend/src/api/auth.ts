@@ -9,7 +9,7 @@ export async function login(email: string, password: string) {
   });
   const json: any = await request.json();
   if (!request.ok) {
-    throw json.message;
+    throw { status: request.status, message: json.message };
   }
 
   Cookie.set('token', json.access_token);
