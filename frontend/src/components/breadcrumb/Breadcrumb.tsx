@@ -7,10 +7,10 @@ type BreadcrumbProps = {
 export default function Breadcrumb({ path }: BreadcrumbProps) {
   return <div className={styles.sidebar__breadcrumb}>
     {path.map(part => (
-      <>
+      <div key={part} style={{ display: 'inline' }}>
         <span className="text-capitalize">{part}</span>
         <span className="color-accent mx-2 font-weight-bold">/</span>
-      </>
+      </div>
     ))}
   </div>
 }
