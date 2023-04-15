@@ -14,10 +14,17 @@
   border-bottom-right-radius: 15px;
 }
 
+.sidebar__content_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-inline: .75rem;
+}
+
 .sidebar__title {
   font-size: 36px;
   margin-top: 1.25rem;
-  margin-left: .75rem;
 }
 
 .sidebar__logo {
@@ -92,4 +99,23 @@
 .sidebar__routes_list_item.active > a,
 .sidebar__routes_list_item.active > svg {
   color: #353844;
+}
+
+.user_icon {
+  --user-icon-size: 50px;
+
+  width: var(--user-icon-size);
+  height: var(--user-icon-size);
+
+  background-color: var(--primary-color);
+
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn_link {
+  border-radius: 3px !important;
 }
