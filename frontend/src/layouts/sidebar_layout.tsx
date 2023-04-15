@@ -22,7 +22,7 @@ export function SidebarLayout({ title, children }: SidebarLayoutProps) {
   }, [router]);
 
   return (
-    <main className="sidebar-layout">
+    <main className={styles.sidebar_layout}>
       <Sidebar />
 
       <section>

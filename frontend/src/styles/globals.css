@@ -23,61 +23,6 @@ body {
   color: white !important;
 }
 
-.sidebar-layout {
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 1rem;
-}
-
-.sidebar {
-  background-color: #1B2031;
-  padding-block: 36px; 
-  height: 100vh;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-}
-
-.sidebar > ul {
-  list-style: none;
-  padding: 0;
-  margin: auto;
-}
-
-.sidebar li {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 70%;
-  text-align: center;
-  
-  padding: 10px 10px;
-  margin: auto;
-  margin-bottom: 1rem;
-  
-  background-color: #353844;
-  border-radius: 8px;
-
-  transition: all .5s;
-}
-
-.sidebar a {
-  color: white; 
-  text-decoration: none !important;
-}
-
-.sidebar li:hover,
-.sidebar li.active {
-  background-color: #969ebe;
-}
-
-.sidebar li:hover > a,
-.sidebar li:hover > svg,
-.sidebar li.active > a,
-.sidebar li.active > svg {
-  color: #353844;
-}
-
 .btn {
   background-color: #ba2764 !important;
   border:none !important;
