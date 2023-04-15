@@ -1,7 +1,8 @@
-import styles from "@/styles/layout/sidebar.module.css";
 import Image from 'next/image';
 import Link from 'next/link'
+import styles from "@/styles/layout/sidebar.module.css";
 import ListIcon from "../icons/list-icon";
+import { routes } from '@/utilities/constants';
 
 type SidebarProps = {};
 export default function Sidebar(props: SidebarProps) {
@@ -21,10 +22,14 @@ export default function Sidebar(props: SidebarProps) {
       <span className={styles.sidebar__separator} />
 
       <ul>
-        <li>
-          <ListIcon width={20} height={15} />
-          <Link className="ms-2" href="/promotions">Promotions</Link>
-        </li>
+        {routes.map(({ name, icon: IconComponent, path }) => {
+          return (
+            <li key={path}>
+              <IconComponent width={20} height={15} />
+              <Link className="ms-2" href="/promotions">Promotions</Link>
+            </li>
+          )
+        })}
       </ul>
     </section>
   )
