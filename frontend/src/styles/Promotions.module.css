@@ -56,3 +56,8 @@
   /* Font and color */
   color: #A0A0A0;
 }
+
+.promotions_table__actions_cell {
+  display: flex;
+  justify-content: end;
+}
