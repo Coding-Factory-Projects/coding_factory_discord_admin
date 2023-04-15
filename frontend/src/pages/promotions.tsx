@@ -3,6 +3,8 @@ import styles from "@/styles/Promotions.module.css";
 import { getPromotions, Promotion } from "@/api/promotions";
 import { PromotionsByYear, buildYearlyPromotions } from "@/utilities/build_yearly_promotions"
 import { SidebarLayout } from "@/layouts/sidebar_layout";
+import { useCallback } from "react";
+import { useRouter } from "next/router";
 
 type PromotionRow = {
   id: string;
@@ -44,6 +46,12 @@ export async function getServerSideProps(context: any) {
 }
 
 export default function Promotions({ promotionsByYear }: { promotionsByYear: PromotionsByYear }) {
+  const router = useRouter()
+
+  const onNewPromotionClicked = useCallback(() => {
+    router.push("/new-promotion");
+  }, [router])
+
   return (
     <SidebarLayout title="Promotions">
       <div className={styles.promotions_page}>
@@ -52,7 +60,7 @@ export default function Promotions({ promotionsByYear }: { promotionsByYear: Pro
               <div className={styles.promotion_year_header}>
                 <h2>{start_year} - {end_year}</h2>
                 {index == 0 ? (
-                  <Button variant="primary">
+                  <Button variant="primary" onClick={onNewPromotionClicked}>
                     Nouvelle promotion
                   </Button>
                 ): null}
