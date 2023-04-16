@@ -1,0 +1,51 @@
+.new_promotion__content {
+  margin: auto;
+  min-width: 70%;
+
+  margin-top: 3rem;
+
+  font-weight: 600;
+}
+
+.new_promotion__form_container {
+  padding-block: 2rem;
+  padding-inline: 20%;
+
+  background-color: #353844;
+
+  border-radius: 15px;
+}
+
+.new_promotion__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.new_promotion__students_input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+
+  width: 20rem;
+  padding-block: 3rem;
+  background-color: #8C92AB;
+  border-radius: 8px;
+
+  font-size: 24px;
+  text-align: center;
+
+  margin: auto;
+}
+
+.new_promotion__submit_btn {
+  max-width: max-content;
+  margin: auto;
+}
+
+.csv_image {
+  display: block;
+  filter: invert(100%);
+}

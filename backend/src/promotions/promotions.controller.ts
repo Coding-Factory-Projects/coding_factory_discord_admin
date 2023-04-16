@@ -15,19 +15,49 @@ import { PromotionsService } from './promotions.service';
 import { CreatePromotionDto } from './dto/create-promotion.dto';
 import { UpdatePromotionDto } from './dto/update-promotion.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { createReadStream } from 'fs';
+import * as csvParser from 'csv-parser';
 
 @Controller('promotions')
 export class PromotionsController {
   constructor(private readonly promotionsService: PromotionsService) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('students_file'))
-  create(
+  @UseInterceptors(
+    FileInterceptor('students_file', {
+      dest: './students',
+    }),
+  )
+  async create(
     @Body() createPromotionDto: CreatePromotionDto,
     @UploadedFile() studentsList: Express.Multer.File,
   ) {
-    console.log(createPromotionDto, studentsList);
-    return this.promotionsService.create({ ...createPromotionDto, students: [] });
+    return this.promotionsService.create({
+      ...createPromotionDto,
+      students: await this.getStudentsList(studentsList),
+    });
+  }
+
+  private async getStudentsList(
+    studentsListFile: Express.Multer.File,
+  ): Promise<any[]> {
+    const stream = createReadStream(studentsListFile.path);
+    return new Promise((resolve, reject) => {
+      const lines = [];
+      stream
+        .pipe(
+          csvParser({
+            headers: ['lastName', 'firstName', 'email'],
+            separator: ';',
+          }),
+        )
+        .on('data', (data) => lines.push(data))
+        .on('error', (err) => reject(err))
+        .on('end', () => {
+          lines.shift();
+          resolve(lines);
+        });
+    });
   }
 
   @UseGuards(AuthGuard)

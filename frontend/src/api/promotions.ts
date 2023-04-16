@@ -24,3 +24,25 @@ export async function getPromotions(token: string): Promise<Array<Promotion>> {
 
   return json;
 }
+
+export async function createPromotion(token: string, promotionName: string, campus: string, startYear: number, endYear: number, studentsFile: File) {
+  const body = new FormData()
+  body.append('name', promotionName);
+  body.append('campus', campus);
+  body.append('start_year', startYear.toString());
+  body.append('end_year', endYear.toString());
+  body.append('students_file', studentsFile);
+
+  const request = await fetch(`/api/promotions`, {
+    method: "POST", 
+    headers: { 'Authorization': `Bearer ${token}` },
+    body 
+  });
+  const json = await request.json();
+
+  if (request.status !== 200) {
+    throw json.message;
+  }
+
+  return json;
+}

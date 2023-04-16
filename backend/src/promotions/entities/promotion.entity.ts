@@ -21,7 +21,7 @@ export class Promotion {
   @Column({ default: '' })
   discord_role_id: string;
 
-  @Column()
+  @Column({ default: false })
   archived: boolean;
 
   @CreateDateColumn()
