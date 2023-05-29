@@ -57,6 +57,8 @@
 
 .sidebar__content {
   display: grid;
+  max-height: 100vh;
+  overflow-y: scroll;
 }
 
 /* Sidebar links list */
