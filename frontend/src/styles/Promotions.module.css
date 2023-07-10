@@ -61,3 +61,8 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.promotions__buttons_container {
+  display: flex;
+  gap: .5rem;
+}

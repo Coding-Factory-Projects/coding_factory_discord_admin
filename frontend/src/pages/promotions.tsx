@@ -69,9 +69,14 @@ export default function Promotions({ promotionsByYear }: { promotionsByYear: Pro
               <div className={styles.promotion_year_header}>
                 <h2>{start_year} - {end_year}</h2>
                 {index == 0 ? (
-                  <Button variant="primary" onClick={onNewPromotionClicked}>
-                    Nouvelle promotion
-                  </Button>
+                  <div className={styles.promotions__buttons_container}>
+                    <Button variant="secondary">
+                      Nouvelle année
+                    </Button>
+                    <Button variant="primary" onClick={onNewPromotionClicked}>
+                      Nouvelle promotion
+                    </Button>
+                  </div>
                 ): null}
               </div>
               <div className={styles.table_container}>
