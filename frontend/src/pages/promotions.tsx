@@ -1,11 +1,12 @@
 import { Table, Button } from "react-bootstrap";
 import styles from "@/styles/Promotions.module.css";
-import { getPromotions, Promotion } from "@/api/promotions";
+import { getPromotions, makePromotionsNewYear, Promotion } from "@/api/promotions";
 import { PromotionsByYear, buildYearlyPromotions } from "@/utilities/build_yearly_promotions"
 import { SidebarLayout } from "@/layouts/sidebar_layout";
 import { useCallback } from "react";
 import { useRouter } from "next/router";
 import { ConfirmDialog, useDialog } from "@/components/dialogs/ConfirmDialog";
+import Cookies from "js-cookie";
 
 type PromotionRow = {
   id: string;
@@ -42,7 +43,8 @@ export async function getServerSideProps(context: any) {
     const promotions = await getPromotions(token);
     return {
       props: {
-        promotionsByYear: buildYearlyPromotions(promotions)
+        promotionsByYear: buildYearlyPromotions(promotions),
+        apiUrl: process.env.API_URL
       }
     }
   } catch (exception) {
@@ -56,7 +58,7 @@ export async function getServerSideProps(context: any) {
   }
 }
 
-export default function Promotions({ promotionsByYear }: { promotionsByYear: PromotionsByYear }) {
+export default function Promotions({ promotionsByYear, apiUrl }: { promotionsByYear: PromotionsByYear, apiUrl: string }) {
   const router = useRouter()
   const confirmDialogHook = useDialog()
 
@@ -64,13 +66,15 @@ export default function Promotions({ promotionsByYear }: { promotionsByYear: Pro
     router.push("/new-promotion");
   }, [router])
 
-  const onNewYearConfirmed = useCallback(() => {
-    console.log("Confirm new year")
-    
-    // TODO: Request new year
+  const onNewYearConfirmed = useCallback(async () => {
+    try {
+      const token = Cookies.get('token')!;
+      await makePromotionsNewYear(apiUrl, token);
+    } finally {
+      confirmDialogHook.close()
+    }
 
-    confirmDialogHook.close()
-  }, [confirmDialogHook]);
+  }, [apiUrl, confirmDialogHook]);
 
   return (
     <SidebarLayout title="Promotions">

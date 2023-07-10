@@ -78,21 +78,43 @@ export class PromotionsController {
     return this.promotionsService.findAll();
   }
 
+  @UseGuards(AuthGuard)
+  @Get('/new-year')
+  async handleNewYear() {
+    try {
+      await this.promotionsService.toNewYear();
+      await this.botService.onNextYear();
+
+      return {
+        message: "Le passage à la nouvelle année s'est bien passé",
+      };
+    } catch (exception) {
+      return {
+        error: "Une erreur s'est produite !",
+      };
+    }
+  }
+
+  @UseGuards(AuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.promotionsService.findOne(+id);
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
   update(
     @Param('id') id: string,
     @Body() updatePromotionDto: UpdatePromotionDto,
   ) {
+    // TODO: Update a promotion
     return this.promotionsService.update(+id, updatePromotionDto);
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
+    // TODO: Archive the promotion
     return this.promotionsService.remove(+id);
   }
 }

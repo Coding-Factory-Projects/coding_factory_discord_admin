@@ -63,10 +63,10 @@ export class BotService {
     }
   }
 
-  async onNextYear(promotion: Promotion) {
+  async onNextYear() {
     const request = await fetch(
       `${this.configService.get('BOT_API_URL')}/next-year`,
-      { method: 'POST', body: JSON.stringify(promotion) },
+      { method: 'POST', body: JSON.stringify({}) },
     );
     const json = await request.json();
 
@@ -75,7 +75,6 @@ export class BotService {
         'An http error happened while making the promotion next year !',
         json,
       );
-      throw new PromotionNotUpdated(promotion.name);
     }
   }
 }
