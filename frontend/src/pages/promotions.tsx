@@ -36,12 +36,21 @@ function PromotionRow(props: PromotionRowProps) {
 
 export async function getServerSideProps(context: any) {
   const token = context.req.cookies['token'];
-  const promotions = await getPromotions(token);
-
-  return {
-    props: {
-      promotionsByYear: buildYearlyPromotions(promotions)
+  
+  try {
+    const promotions = await getPromotions(token);
+    return {
+      props: {
+        promotionsByYear: buildYearlyPromotions(promotions)
+      }
     }
+  } catch (exception) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/"
+      }
+    } 
   }
 }
 
