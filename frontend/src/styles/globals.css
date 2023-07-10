@@ -53,3 +53,7 @@ body {
 .input::placeholder{
   color:white;
 }
+
+.modal-content > * {
+  color: black;
+}

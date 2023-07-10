@@ -5,6 +5,7 @@ import { PromotionsByYear, buildYearlyPromotions } from "@/utilities/build_yearl
 import { SidebarLayout } from "@/layouts/sidebar_layout";
 import { useCallback } from "react";
 import { useRouter } from "next/router";
+import { ConfirmDialog, useDialog } from "@/components/dialogs/ConfirmDialog";
 
 type PromotionRow = {
   id: string;
@@ -49,17 +50,27 @@ export async function getServerSideProps(context: any) {
       redirect: {
         permanent: false,
         destination: "/"
-      }
+      },
+      props: {}
     } 
   }
 }
 
 export default function Promotions({ promotionsByYear }: { promotionsByYear: PromotionsByYear }) {
   const router = useRouter()
+  const confirmDialogHook = useDialog()
 
   const onNewPromotionClicked = useCallback(() => {
     router.push("/new-promotion");
   }, [router])
+
+  const onNewYearConfirmed = useCallback(() => {
+    console.log("Confirm new year")
+    
+    // TODO: Request new year
+
+    confirmDialogHook.close()
+  }, [confirmDialogHook]);
 
   return (
     <SidebarLayout title="Promotions">
@@ -70,7 +81,7 @@ export default function Promotions({ promotionsByYear }: { promotionsByYear: Pro
                 <h2>{start_year} - {end_year}</h2>
                 {index == 0 ? (
                   <div className={styles.promotions__buttons_container}>
-                    <Button variant="secondary">
+                    <Button variant="secondary" onClick={() => confirmDialogHook.open()}>
                       Nouvelle année
                     </Button>
                     <Button variant="primary" onClick={onNewPromotionClicked}>
@@ -106,6 +117,7 @@ export default function Promotions({ promotionsByYear }: { promotionsByYear: Pro
               </div>
           </div>
         ))}
+        <ConfirmDialog show={confirmDialogHook.show} onConfirm={onNewYearConfirmed} handleClose={confirmDialogHook.close} />
       </div>
     </SidebarLayout>
   )
