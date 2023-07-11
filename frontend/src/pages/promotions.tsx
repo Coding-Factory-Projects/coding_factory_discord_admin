@@ -3,7 +3,7 @@ import styles from "@/styles/Promotions.module.css";
 import { archivePromotion, getPromotions, makePromotionsNewYear, Promotion } from "@/api/promotions";
 import { PromotionsByYear, buildYearlyPromotions } from "@/utilities/build_yearly_promotions"
 import { SidebarLayout } from "@/layouts/sidebar_layout";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useRouter } from "next/router";
 import { ConfirmNextYearDialog } from "@/components/dialogs/ConfirmDialog";
 import Cookies from "js-cookie";
