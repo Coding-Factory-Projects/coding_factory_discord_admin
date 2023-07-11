@@ -3,10 +3,11 @@ import styles from "@/styles/Promotions.module.css";
 import { archivePromotion, getPromotions, makePromotionsNewYear, Promotion } from "@/api/promotions";
 import { PromotionsByYear, buildYearlyPromotions } from "@/utilities/build_yearly_promotions"
 import { SidebarLayout } from "@/layouts/sidebar_layout";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useRouter } from "next/router";
-import { ConfirmDialog, useDialog } from "@/components/dialogs/ConfirmDialog";
+import { ConfirmNextYearDialog } from "@/components/dialogs/ConfirmDialog";
 import Cookies from "js-cookie";
+import { useDialog } from "@/components/dialogs/hooks";
 
 type PromotionRow = {
   id: string;
@@ -73,10 +74,10 @@ export default function Promotions({ promotionsByYear, apiUrl }: { promotionsByY
   }, [router])
 
   const onDelete = useCallback(async (id: string) => {
-    console.log("Deleting ", id)
     const token = Cookies.get('token')!;
     await archivePromotion(apiUrl, token, id);
-  }, [apiUrl])
+    router.reload()
+  }, [apiUrl, router])
 
   const onNewYearConfirmed = useCallback(async () => {
     try {
@@ -133,7 +134,7 @@ export default function Promotions({ promotionsByYear, apiUrl }: { promotionsByY
               </div>
           </div>
         ))}
-        <ConfirmDialog show={confirmDialogHook.show} onConfirm={onNewYearConfirmed} handleClose={confirmDialogHook.close} />
+        <ConfirmNextYearDialog show={confirmDialogHook.show} onConfirm={onNewYearConfirmed} handleClose={confirmDialogHook.close} />
       </div>
     </SidebarLayout>
   )
