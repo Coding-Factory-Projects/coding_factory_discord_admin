@@ -83,11 +83,12 @@ export default function Promotions({ promotionsByYear, apiUrl }: { promotionsByY
     try {
       const token = Cookies.get('token')!;
       await makePromotionsNewYear(apiUrl, token);
+      router.reload()
     } finally {
       confirmDialogHook.close()
     }
 
-  }, [apiUrl, confirmDialogHook]);
+  }, [router, apiUrl, confirmDialogHook]);
 
   return (
     <SidebarLayout title="Promotions">

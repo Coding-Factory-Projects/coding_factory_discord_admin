@@ -3,6 +3,7 @@ import { SidebarLayout } from "@/layouts/sidebar_layout";
 import styles from '@/styles/new-promotion.module.css'
 import Cookies from "js-cookie";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, ReactElement, useCallback, useState } from "react";
 import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 
@@ -28,6 +29,7 @@ function generateYearOptions(): ReactElement[] {
 }
 
 export default function NewPromotion() {
+  const router = useRouter();
   const [promotionName, setPromotionName] = useState("");
   const [campus, setCampus] = useState<string>('cergy');
   const [start_year, setStartYear] = useState(new Date().getFullYear());
@@ -72,7 +74,7 @@ export default function NewPromotion() {
 
     createPromotion(token, promotionName, campus!, start_year, end_year, currentFile!)
         .then(() => {
-            // TODO: Handle the 
+            router.replace("/promotions")
         })
         .catch((e) => {
             // setError(buildErrorObjectFromStatus(e.status))
@@ -80,7 +82,7 @@ export default function NewPromotion() {
         .finally(() => {
             setIsLoading(false);
         })
-  }, [campus, currentFile, end_year, promotionName, start_year]);
+  }, [router, campus, currentFile, end_year, promotionName, start_year]);
 
   return (
     <SidebarLayout title="Nouvelle promotion">
