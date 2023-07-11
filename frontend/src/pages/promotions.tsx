@@ -93,9 +93,15 @@ export default function Promotions({ promotionsByYear, apiUrl }: { promotionsByY
   return (
     <SidebarLayout title="Promotions">
       <div className={styles.promotions_page}>
+        {promotionsByYear.length == 0?
+          <div className={styles.promotions__buttons_container}>
+            <Button variant="primary" onClick={onNewPromotionClicked}>
+              Nouvelle promotion
+            </Button>
+          </div>: null}
         {promotionsByYear.map(({start_year, end_year, promotions}, index) => (
           <div key={`${start_year}-${end_year}`} className={styles.promotion_container}>
-              <div className={styles.promotion_year_header}>
+            <div className={styles.promotion_year_header}>
                 <h2>{start_year} - {end_year}</h2>
                 {index == 0 ? (
                   <div className={styles.promotions__buttons_container}>

@@ -12,7 +12,7 @@ export class Student {
   @Column({ nullable: false })
   lastName: string;
 
-  @Column({ nullable: true, unique: true })
+  @Column({ nullable: true })
   email: string;
 
   @Column({ default: null })

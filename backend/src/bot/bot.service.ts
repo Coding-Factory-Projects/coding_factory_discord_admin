@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Promotion } from 'src/promotions/entities/promotion.entity';
+import { HttpService } from '@nestjs/axios';
 
 class PromotionNotCreated extends Error {}
 class PromotionNotUpdated extends Error {}
@@ -8,72 +9,82 @@ class PromotionNotArchived extends Error {}
 
 @Injectable()
 export class BotService {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly httpService: HttpService,
+  ) {}
 
   async createBotPromotion(promotion: Promotion): Promise<string> {
-    const request = await fetch(
-      `${this.configService.get('BOT_API_URL')}/on-promotion-created`,
-      { method: 'POST', body: JSON.stringify(promotion) },
-    );
-    const json = await request.json();
+    try {
+      const request = await this.httpService
+        .post(
+          `${this.configService.get('BOT_API_URL')}/on-promotion-created`,
+          promotion,
+        )
+        .toPromise();
+      const data = request.data;
 
-    if (!request.ok) {
+      const { roleId } = data as any;
+      console.log('Promotion created on the bot', data);
+      return roleId;
+    } catch (e) {
       console.error(
         'An http error happened while creating the promotion on the server !',
-        json,
       );
       throw new PromotionNotCreated(promotion.name);
     }
-    console.log('Promotion created on the bot');
-
-    const { roleId } = json;
-    return roleId;
   }
 
   async onPromotionUpdated(promotion: Promotion) {
-    const request = await fetch(
-      `${this.configService.get('BOT_API_URL')}/on-promotion-updated`,
-      { method: 'POST', body: JSON.stringify(promotion) },
-    );
-    const json = await request.json();
+    try {
+      const request = await this.httpService
+        .post(
+          `${this.configService.get('BOT_API_URL')}/on-promotion-updated`,
+          promotion,
+        )
+        .toPromise();
+      const json = request.data;
 
-    if (!request.ok) {
+      console.log('Promotion updated on the bot', json);
+    } catch (e) {
       console.error(
         'An http error happened while updating the promotion on the server !',
-        json,
+        e,
       );
       throw new PromotionNotUpdated(promotion.name);
     }
-    console.log('Promotion updated on the bot');
   }
 
   async onPromotionArchived(promotion: Promotion) {
-    const request = await fetch(
-      `${this.configService.get('BOT_API_URL')}/archive-promotion`,
-      { method: 'POST', body: JSON.stringify(promotion) },
-    );
-    const json = await request.json();
+    try {
+      const request = await this.httpService
+        .post(`${this.configService.get('BOT_API_URL')}/archive-promotion`, {
+          roleId: promotion.discord_role_id,
+        })
+        .toPromise();
+      const json = request.data;
 
-    if (!request.ok) {
+      console.log('Promotion updated on the bot', json);
+    } catch (e) {
       console.error(
-        'An http error happened while creating the promotion on the server !',
-        json,
+        'An http error happened while updating the promotion on the server !',
+        e,
       );
       throw new PromotionNotArchived(promotion.name);
     }
   }
 
   async onNextYear() {
-    const request = await fetch(
-      `${this.configService.get('BOT_API_URL')}/next-year`,
-      { method: 'POST', body: JSON.stringify({}) },
-    );
-    const json = await request.json();
-
-    if (!request.ok) {
+    try {
+      const request = await this.httpService
+        .post(`${this.configService.get('BOT_API_URL')}/next-year`, {})
+        .toPromise();
+      const json = request.data;
+      console.log(json);
+    } catch (e) {
       console.error(
         'An http error happened while making the promotion next year !',
-        json,
+        e,
       );
     }
   }

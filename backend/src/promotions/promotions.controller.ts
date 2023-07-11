@@ -116,7 +116,9 @@ export class PromotionsController {
 
   @UseGuards(AuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.promotionsService.archive(+id);
+  async remove(@Param('id') id: string) {
+    await this.promotionsService.archive(+id);
+    const archivedPromotion = await this.promotionsService.findOne(+id);
+    await this.botService.onPromotionArchived(archivedPromotion)
   }
 }
