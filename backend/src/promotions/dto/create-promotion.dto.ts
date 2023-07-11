@@ -5,5 +5,6 @@ export class CreateStudentDto {
 
 export class CreatePromotionDto {
   name: string;
+  discord_role_id: string;
   // students: CreateStudentDto[];
 }

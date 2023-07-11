@@ -42,7 +42,10 @@ export class PromotionsController {
     });
 
     try {
-      await this.botService.createBotPromotion(result);
+      const role_id = await this.botService.createBotPromotion(result);
+      await this.promotionsService.update(result.id, {
+        discord_role_id: role_id,
+      });
     } catch (e) {
       await this.promotionsService.remove(result.id);
     }
