@@ -12,6 +12,9 @@ export class Student {
   @Column({ nullable: false })
   lastName: string;
 
+  @Column({ nullable: true, unique: true })
+  email: string;
+
   @Column({ default: null })
   discordTag: string | null;
 
