@@ -66,7 +66,7 @@ export class PromotionsService {
   }
 
   findAll(): Promise<Promotion[]> {
-    return this.promotionsRepository.find();
+    return this.promotionsRepository.find({ where: { archived: false } });
   }
 
   findOne(id: number): Promise<Promotion> {
@@ -75,6 +75,12 @@ export class PromotionsService {
 
   update(id: number, updatePromotionDto: UpdatePromotionDto) {
     return this.promotionsRepository.update(id, updatePromotionDto);
+  }
+
+  async archive(id: number) {
+    const entity = await this.findOne(id);
+    entity.archived = true;
+    return this.promotionsRepository.update({ id }, entity);
   }
 
   async remove(id: number) {

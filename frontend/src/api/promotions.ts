@@ -36,6 +36,17 @@ export async function makePromotionsNewYear(apiUrl: string, token: string): Prom
   return json;
 }
 
+export async function archivePromotion(apiUrl: string, token: string, id: string): Promise<Array<Promotion>> {
+  const request = await fetch(`${apiUrl}/promotions/${id}`, { method: "DELETE", headers: { 'Authorization': `Bearer ${token}` } });
+  const json = await request.json();
+
+  if (request.status !== 200) {
+    throw json.message;
+  }
+
+  return json;
+}
+
 export async function createPromotion(token: string, promotionName: string, campus: string, startYear: number, endYear: number, studentsFile: File) {
   const body = new FormData()
   body.append('name', promotionName);

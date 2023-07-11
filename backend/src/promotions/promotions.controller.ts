@@ -117,7 +117,6 @@ export class PromotionsController {
   @UseGuards(AuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    // TODO: Archive the promotion
-    return this.promotionsService.remove(+id);
+    return this.promotionsService.archive(+id);
   }
 }
