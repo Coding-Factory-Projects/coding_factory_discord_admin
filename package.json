@@ -6,7 +6,9 @@
     ],
     "scripts": {
         "start:frontend": "yarn workspace frontend dev",
-        "start:backend": "yarn workspace backend start:dev"
+        "start:backend": "yarn workspace backend start:dev",
+        "start:frontend-prod": "yarn workspace frontend build && yarn workspace frontend start",
+        "start:backend-prod": "yarn workspace backend build && yarn workspace backend start:prod"
     },
     "dependencies": {
         "@nestjs/axios": "^3.0.0",
