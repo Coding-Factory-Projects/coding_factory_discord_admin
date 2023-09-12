@@ -1,0 +1,123 @@
+/* Layout */
+.sidebar_layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 1rem;
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: #1B2031;
+  padding-block: 36px; 
+  height: 100vh;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.sidebar__content_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 1.25rem;
+  margin-inline: .75rem;
+}
+
+.sidebar__title {
+  font-size: 36px;
+}
+
+.sidebar__logo {
+  display: block;
+  margin-inline: auto;
+}
+
+.sidebar__app_title {
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: bolder;
+  margin-top: 1.5rem;
+}
+
+.sidebar__separator {
+  display: block;
+  margin: auto;
+  margin-block: 1.5rem;
+  
+  width: 80%;
+  height: 1px;
+  
+  background-color: #353844;
+}
+
+.sidebar__breadcrumb {
+  margin-top: 2rem;
+  margin-left: .75rem;
+}
+
+.sidebar__content {
+  display: grid;
+  max-height: 100vh;
+  overflow-y: scroll;
+}
+
+/* Sidebar links list */
+.sidebar__routes_list {
+  list-style: none;
+  padding: 0;
+  margin: auto;
+}
+
+.sidebar__routes_list_item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 70%;
+  text-align: center;
+  
+  padding: 10px 10px;
+  margin: auto;
+  margin-bottom: 1rem;
+  
+  background-color: #353844;
+  border-radius: 8px;
+
+  transition: all .5s;
+}
+
+.sidebar__routes_list_item a {
+  color: white; 
+  text-decoration: none !important;
+}
+
+.sidebar__routes_list_item:hover,
+.sidebar__routes_list_item.active {
+  background-color: #969ebe;
+}
+
+.sidebar__routes_list_item:hover > a,
+.sidebar__routes_list_item:hover > svg,
+.sidebar__routes_list_item.active > a,
+.sidebar__routes_list_item.active > svg {
+  color: #353844;
+}
+
+.user_icon {
+  --user-icon-size: 50px;
+
+  width: var(--user-icon-size);
+  height: var(--user-icon-size);
+
+  background-color: var(--primary-color);
+
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn_link {
+  border-radius: 3px !important;
+}

@@ -1,0 +1,68 @@
+.promotions_page {
+  margin-inline: auto;
+}
+
+.promotion_container {
+  padding-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 900px;
+}
+
+.promotion_year_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.promotion_year_header > h2 {
+  font-size: 24px !important;
+  margin: 0;
+  vertical-align: center;
+}
+
+.table_container {
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #555A6D;
+}
+
+.promotions_table {
+  color: white;
+
+  border: none;
+
+  font-size: 18px !important;
+  font-weight: 600 !important;
+}
+
+.promotions_table thead,
+.promotions_table tbody {
+  margin-left: 15px;
+}
+
+.promotions_table tr,
+.promotions_table td,
+.promotions_table th {
+  border: none;
+}
+
+.promotions_table tr {
+  vertical-align: middle;
+}
+
+.promotions_table th {
+  /* Font and color */
+  color: #A0A0A0;
+}
+
+.promotions_table__actions_cell {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.promotions__buttons_container {
+  display: flex;
+  gap: .5rem;
+}

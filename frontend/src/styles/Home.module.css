@@ -8,24 +8,3 @@
     flex-direction: column;
     border-radius: 1%;
 }
-.button {
-    background-color: #BA2764;
-    width: 15vh;
-    border:none;
-    --bs-btn-hover-bg: #D60D61;
-}
-.button:active{
-    background-color: #D60D61 !important;
-}
-.input{
-    background-color: #8C92AB;
-    border: none;
-    color: #ffffff;
-}
-.input:focus{
-    background-color: #8C92AB;
-    color: #ffffff;
-}
-.input::placeholder{
-    color:white;
-}
