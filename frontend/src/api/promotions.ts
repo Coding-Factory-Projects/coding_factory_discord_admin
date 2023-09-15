@@ -62,7 +62,7 @@ export async function createPromotion(token: string, promotionName: string, camp
   });
   const json = await request.json();
 
-  if (request.status !== 200) {
+  if (request.status !== 200 && request.status !== 201) {
     throw json.message;
   }
 
