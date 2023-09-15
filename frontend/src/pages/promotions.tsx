@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { ConfirmNextYearDialog } from "@/components/dialogs/ConfirmDialog";
 import Cookies from "js-cookie";
 import { useDialog } from "@/components/dialogs/hooks";
+import { capitalize } from "@/utilities/text-utils";
 
 type PromotionRow = {
   id: string;
@@ -131,7 +132,7 @@ export default function Promotions({ promotionsByYear, apiUrl }: { promotionsByY
                         const promotionRow: PromotionRow = {
                           id: promotion.id.toString(),
                           moderator: moderator? moderator: "Aucun modérateur",
-                          name: promotion.name,
+                          name: `${promotion.name} ${capitalize(promotion.campus)}`,
                           role: promotion.discord_role_id
                         }
                         return <PromotionRow key={promotion.id} promotion={promotionRow} onDeleteClicked={(id: string) => onDelete(id)} />
