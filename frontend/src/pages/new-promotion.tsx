@@ -96,7 +96,7 @@ export default function NewPromotion() {
 
             <Form.Group>
               <Form.Label>Campus (*)</Form.Label>
-              <Form.Select value={start_year} onChange={onCampusChange} aria-label="Default select example">
+              <Form.Select value={campus} onChange={onCampusChange} aria-label="Default select example">
                 <option value="cergy">Cergy</option>
                 <option value="paris">Paris</option>
               </Form.Select>
