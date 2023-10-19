@@ -10,6 +10,8 @@ export class PromotionsService {
   constructor(
     @InjectRepository(Promotion)
     private readonly promotionsRepository: Repository<Promotion>,
+    @InjectRepository(Student)
+    private readonly studentsRepository: Repository<Student>,
     @InjectDataSource()
     private readonly dataSource: DataSource,
   ) {}
@@ -86,5 +88,11 @@ export class PromotionsService {
   async remove(id: number) {
     const entity = await this.findOne(id);
     return this.promotionsRepository.remove(entity);
+  }
+
+  async updateStudentId(email: string, discord_id: string) {
+    await this.studentsRepository.update({ email }, { discordTag: discord_id });
+    const student = await this.studentsRepository.findOneBy({ email });
+    return student;
   }
 }
