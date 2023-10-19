@@ -35,10 +35,7 @@ export class PromotionsController {
       updateStudentDto.email,
       updateStudentDto.discord_id,
     );
-    console.log(JSON.stringify(result));
-    return {
-      status: 'success',
-    };
+    return result;
   }
 
   @Post()
