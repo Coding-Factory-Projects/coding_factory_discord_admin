@@ -30,6 +30,7 @@ export class BotService {
     } catch (e) {
       console.error(
         'An http error happened while creating the promotion on the server !',
+        e
       );
       throw new PromotionNotCreated(promotion.name);
     }

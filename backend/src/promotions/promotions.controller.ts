@@ -29,7 +29,7 @@ export class PromotionsController {
   @Public()
   @Patch('students')
   async updateStudentDiscordTag(
-    @Body() updateStudentDto: { email: string; discord_id: string },
+    @Body() updateStudentDto: any
   ) {
     const result = await this.promotionsService.updateStudentId(
       updateStudentDto.email,

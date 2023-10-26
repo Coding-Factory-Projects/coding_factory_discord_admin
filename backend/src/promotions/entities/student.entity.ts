@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Promotion } from './promotion.entity';
 
 @Entity({ name: 'students' })
@@ -18,6 +18,7 @@ export class Student {
   @Column({ default: null })
   discordTag: string | null;
 
-  @ManyToOne(() => Promotion, (promotion) => promotion.students)
+  @JoinColumn()
+  @ManyToOne(() => Promotion, (promotion) => promotion.students, {onDelete: "CASCADE", onUpdate: "CASCADE"})
   promotion: Promotion;
 }

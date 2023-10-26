@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository, InjectDataSource } from '@nestjs/typeorm';
 import { DataSource, EntityManager, Repository } from 'typeorm';
 import { UpdatePromotionDto } from './dto/update-promotion.dto';
@@ -91,8 +91,11 @@ export class PromotionsService {
   }
 
   async updateStudentId(email: string, discord_id: string) {
-    await this.studentsRepository.update({ email }, { discordTag: discord_id });
     const student = await this.studentsRepository.findOneBy({ email });
-    return student;
+    if (!student) {
+      throw new NotFoundException(`L'étudiant associé à l'email ${email} n'existe pas`);
+    }
+    await this.studentsRepository.update({ email }, { discordTag: discord_id });
+    return await this.studentsRepository.findOneBy({ email });
   }
 }
