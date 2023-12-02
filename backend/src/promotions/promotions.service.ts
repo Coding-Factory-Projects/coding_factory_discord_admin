@@ -96,6 +96,6 @@ export class PromotionsService {
       throw new NotFoundException(`L'étudiant associé à l'email ${email} n'existe pas`);
     }
     await this.studentsRepository.update({ email }, { discordTag: discord_id });
-    return await this.studentsRepository.findOneBy({ email });
+    return await this.studentsRepository.findOne({ where: { email }, relations: ["promotion"] });
   }
 }
