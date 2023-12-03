@@ -33,6 +33,6 @@ export class Promotion {
   @CreateDateColumn()
   creation_date: Date;
 
-  @OneToMany(() => Student, (student) => student.promotion)
+  @OneToMany(() => Student, (student) => student.promotion, { onDelete: "CASCADE", onUpdate: "CASCADE" })
   students: Student[];
 }

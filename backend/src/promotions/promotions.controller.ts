@@ -14,7 +14,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { PromotionsService } from './promotions.service';
 import { CreatePromotionDto } from './dto/create-promotion.dto';
 import { UpdatePromotionDto } from './dto/update-promotion.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard, Public } from 'src/auth/auth.guard';
 import { createReadStream } from 'fs';
 import * as csvParser from 'csv-parser';
 import { BotService } from 'src/bot/bot.service';
@@ -25,6 +25,18 @@ export class PromotionsController {
     private readonly promotionsService: PromotionsService,
     private readonly botService: BotService,
   ) {}
+
+  @Public()
+  @Patch('students')
+  async updateStudentDiscordTag(
+    @Body() updateStudentDto: any
+  ) {
+    const result = await this.promotionsService.updateStudentId(
+      updateStudentDto.email,
+      updateStudentDto.discord_id,
+    );
+    return result;
+  }
 
   @Post()
   @UseInterceptors(

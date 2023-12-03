@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository, InjectDataSource } from '@nestjs/typeorm';
 import { DataSource, EntityManager, Repository } from 'typeorm';
 import { UpdatePromotionDto } from './dto/update-promotion.dto';
@@ -10,6 +10,8 @@ export class PromotionsService {
   constructor(
     @InjectRepository(Promotion)
     private readonly promotionsRepository: Repository<Promotion>,
+    @InjectRepository(Student)
+    private readonly studentsRepository: Repository<Student>,
     @InjectDataSource()
     private readonly dataSource: DataSource,
   ) {}
@@ -86,5 +88,14 @@ export class PromotionsService {
   async remove(id: number) {
     const entity = await this.findOne(id);
     return this.promotionsRepository.remove(entity);
+  }
+
+  async updateStudentId(email: string, discord_id: string) {
+    const student = await this.studentsRepository.findOneBy({ email });
+    if (!student) {
+      throw new NotFoundException(`L'étudiant associé à l'email ${email} n'existe pas`);
+    }
+    await this.studentsRepository.update({ email }, { discordTag: discord_id });
+    return await this.studentsRepository.findOne({ where: { email }, relations: ["promotion"] });
   }
 }
